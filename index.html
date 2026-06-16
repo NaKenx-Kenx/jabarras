@@ -116,15 +116,21 @@
             22% { text-shadow: 2px 0 0 var(--red), -2px 0 0 var(--cyan); transform: translate(0); }
         }
 
-        /* --- Video Embed --- */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Rasio aspek 16:9 */
-            height: 0;
+        /* --- Media Panel (Video + Buttons) --- */
+        .media-panel {
             margin-bottom: 25px;
             border: 2px solid var(--text-color);
             box-shadow: 2px 2px 0px var(--red), -2px -2px 0px var(--cyan);
             background-color: #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Rasio aspek 16:9 */
+            height: 0;
+            width: 100%;
         }
 
         .video-wrapper iframe {
@@ -135,6 +141,52 @@
             height: 100%;
             border: none;
             z-index: 10;
+        }
+
+        /* Game Buttons */
+        .game-buttons {
+            display: flex;
+            border-top: 2px solid var(--text-color);
+        }
+
+        .game-btn {
+            flex: 1;
+            padding: 12px 10px;
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            color: var(--text-color);
+            background: transparent;
+            border: none;
+            transition: 0.2s all;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-btn:first-child {
+            border-right: 2px solid var(--text-color);
+        }
+
+        .game-btn.active:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            cursor: pointer;
+        }
+
+        .game-btn.disabled {
+            color: #555;
+            cursor: not-allowed;
+            /* Efek arsir untuk tombol yang belum aktif */
+            background: repeating-linear-gradient(
+                45deg,
+                #111,
+                #111 10px,
+                #000 10px,
+                #000 20px
+            );
         }
 
         /* Links */
@@ -180,6 +232,12 @@
             .header h1 { font-size: 3rem; }
             .link-item { font-size: 1.4rem; padding: 12px; }
             .osd { font-size: 1.2rem; }
+            .game-buttons { flex-direction: column; }
+            .game-btn { font-size: 1.2rem; padding: 12px; }
+            .game-btn:first-child { 
+                border-right: none; 
+                border-bottom: 2px solid var(--text-color); 
+            }
         }
     </style>
 </head>
@@ -198,13 +256,23 @@
             <h1>JABARRAS</h1>
         </div>
 
-        <div class="video-wrapper">
-            <iframe 
-                src="https://www.youtube.com/embed/zW-MmVN6gxY?rel=0" 
-                title="YouTube video player" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="media-panel">
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/zW-MmVN6gxY?rel=0" 
+                    title="YouTube video player" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="game-buttons">
+                <a href="https://kenx-indie-dev.itch.io/c850-found-footage-demo" target="_blank" class="game-btn active">
+                    Try Demo Game Now
+                </a>
+                <button class="game-btn disabled" disabled>
+                    Full release in coming
+                </button>
+            </div>
         </div>
 
         <div class="link-tree">
